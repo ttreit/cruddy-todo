@@ -35,13 +35,12 @@ const writeCounter = (count, callback) => {
 };
 
 // Public API - Fix this function //////////////////////////////////////////////
-// getNextUniquId((err, data)=>{})
 exports.getNextUniqueId = (callback) => {
   readCounter((err, count) => {
-      count += 1;
-      writeCounter(count, (err, counterString) => {
-        callback(err, counterString);
-      });
+    count += 1;
+    writeCounter(count, (err, counterString) => {
+      callback(err, counterString);
+    });
   });
 
 };
