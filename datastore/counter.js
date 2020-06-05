@@ -35,31 +35,15 @@ const writeCounter = (count, callback) => {
 };
 
 // Public API - Fix this function //////////////////////////////////////////////
-
-exports.getNextUniqueId = () => {
-
-  //  invoke readCounter, assign variable to readCounter
-  let id = readCounter((err, fileData) => {
-    if (err) {
-      return err;
-    } else {
-      return fileData;
-    }
-  })
-  // give readCounter callback
-  id += 1;
-  //  write counter (counter)
-  return writeCounter(id, (err, cbCounterString) => {
-    if (err) {
-      return err;
-    } else {
-      return cbCounterString;
-    }
-
+// getNextUniquId((err, data)=>{})
+exports.getNextUniqueId = (callback) => {
+  readCounter((err, count) => {
+      count += 1;
+      writeCounter(count, (err, counterString) => {
+        callback(err, counterString);
+      });
   });
 
-  //counter = counter + 1
-  // return zeroPaddedNumber(counter);
 };
 
 
