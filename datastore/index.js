@@ -17,12 +17,16 @@ exports.create = (text, callback) => {
     });
   });
 };
-
 exports.readAll = (callback) => {
-  var data = _.map(items, (text, id) => {
-    return { id, text };
+  fs.readdir(exports.dataDir, (err, files) => {
+    var data = _.map(files, (file) => {
+      let splitt = file.split('.');
+      let id = splitt[0];
+      let text = id;
+      return { id, text };
+    });
+    callback(null, data);
   });
-  callback(null, data);
 };
 
 exports.readOne = (id, callback) => {
