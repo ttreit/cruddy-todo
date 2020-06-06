@@ -43,13 +43,20 @@ exports.readOne = (id, callback) => {
 };
 
 exports.update = (id, text, callback) => {
-  var item = items[id];
-  if (!item) {
-    callback(new Error(`No item with id: ${id}`));
-  } else {
-    items[id] = text;
-    callback(null, { id, text });
-  }
+  let filePath = path.join(exports.dataDir, id + '.txt');
+  //if id doesn't exist than return error callback
+
+  fs.readFile(filePath, (err, text) => {
+    if (err) {
+      callback(new Error(`No item with id: ${id}`));
+    } else {
+      fs.writeFile(filePath, text, (err) => {
+        callback(null, { id, text });
+      })
+    }
+  });
+
+
 };
 
 exports.delete = (id, callback) => {
