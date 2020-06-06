@@ -154,7 +154,7 @@ describe('todos', () => {
     });
   });
 
-  describe.only('update', () => {
+  describe('update', () => {
     beforeEach((done) => {
       todos.create('original todo', done);
     });
@@ -172,8 +172,6 @@ describe('todos', () => {
       const updatedTodoText = 'updated todo';
       todos.update(todoId, updatedTodoText, (err, todo) => {
         const todoFileContents = fs.readFileSync(path.join(todos.dataDir, `${todoId}.txt`)).toString();
-
-        console.log("==========", updatedTodoText, '\n',todoFileContents)
         expect(todoFileContents).to.equal(updatedTodoText);
         done();
       });

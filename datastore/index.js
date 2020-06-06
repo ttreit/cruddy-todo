@@ -46,13 +46,13 @@ exports.update = (id, text, callback) => {
   let filePath = path.join(exports.dataDir, id + '.txt');
   //if id doesn't exist than return error callback
 
-  fs.readFile(filePath, (err, text) => {
+  fs.access(filePath, (err) => {
     if (err) {
       callback(new Error(`No item with id: ${id}`));
     } else {
-      fs.writeFile(filePath, text, (err) => {
+      fs.writeFile(filePath, text, () => {
         callback(null, { id, text });
-      })
+      });
     }
   });
 
