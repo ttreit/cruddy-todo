@@ -90,7 +90,6 @@ describe('todos', () => {
     it('should only save todo text contents in file', (done) => {
       const todoText = 'walk the dog';
       todos.create(todoText, (err, todo) => {
-      // console.log("TOOOODOOOODODODODOD", todo);
         const todoFileContents = fs.readFileSync(path.join(todos.dataDir, `${todo.id}.txt`)).toString();
         expect(todoFileContents).to.equal(todoText);
         done();
@@ -107,7 +106,7 @@ describe('todos', () => {
     });
   });
 
-  describe.only('readAll', () => {
+  describe('readAll', () => {
     it('should return an empty array when there are no todos', (done) => {
       todos.readAll((err, todoList) => {
         expect(err).to.be.null;
@@ -124,7 +123,6 @@ describe('todos', () => {
       todos.create(todo1text, (err, todo) => {
         todos.create(todo2text, (err, todo) => {
           todos.readAll((err, todoList) => {
-          // console.log("=======", todoList, '\n', expectedTodoList)
             expect(todoList).to.have.lengthOf(2);
             expect(todoList).to.deep.include.members(expectedTodoList, 'NOTE: Text field should use the Id initially');
             done();
